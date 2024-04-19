@@ -5,8 +5,6 @@
 
 #ifndef BIGINT_INCLUDED
 #define BIGINT_INCLUDED
-#ifndef NDEBUG
-#define NDEBUG
 #include <stdio.h>
 
 /* A BigInt_T object is a high-precision integer. */
@@ -68,6 +66,5 @@ void BigInt_writeHex(FILE *psFile, BigInt_T oBigInt);
 
 void BigInt_writeHexAbbrev(FILE *psFile, BigInt_T oBigInt);
 
-#endif
 #endif
 
