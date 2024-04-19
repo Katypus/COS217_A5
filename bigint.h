@@ -69,4 +69,5 @@ void BigInt_writeHex(FILE *psFile, BigInt_T oBigInt);
 void BigInt_writeHexAbbrev(FILE *psFile, BigInt_T oBigInt);
 
 #endif
+#endif
 
