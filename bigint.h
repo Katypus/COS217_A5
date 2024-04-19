@@ -5,6 +5,7 @@
 
 #ifndef BIGINT_INCLUDED
 #define BIGINT_INCLUDED
+#ifndef DNDEBUG
 #define DNDEBUG
 #include <stdio.h>
 
