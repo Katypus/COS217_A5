@@ -41,8 +41,8 @@ loop1:
     bl getchar
     adr x0, iChar
     ldr x0, [x0]
-    cmp x0, EOF
-    beq endloop1
+    cmp x0, 0
+    blt endloop1
     
     // lCharCount++;
     ldr w0, [sp, lCharCount]
