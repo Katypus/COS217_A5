@@ -49,7 +49,8 @@ loop1:
     add w0, w0, 1
 
     // if (!isspace(iChar)) goto else1;
-    ldr x0, iChar
+    adr x0, iChar
+    ldr x0, [x0]
     bl isspace
     cmp x0, FALSE
     beq else1
@@ -84,7 +85,8 @@ loop1:
 
     endif1:
     //if (iChar != '\n') goto endif4;
-    ldr x0, iChar
+    adr x0, iChar
+    ldr x0, [x0]
     cmp x0, newline
     bne endif4
 
