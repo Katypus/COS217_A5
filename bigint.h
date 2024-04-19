@@ -5,8 +5,8 @@
 
 #ifndef BIGINT_INCLUDED
 #define BIGINT_INCLUDED
-#ifndef DNDEBUG
-#define DNDEBUG
+#ifndef NDEBUG
+#define NDEBUG
 #include <stdio.h>
 
 /* A BigInt_T object is a high-precision integer. */
