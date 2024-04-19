@@ -1,4 +1,4 @@
-CFLAGS = -D NDEBUG -O
+CFLAGS = 
 
 # Dependency rules for non-file targets
 all: fib
