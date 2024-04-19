@@ -10,6 +10,7 @@
 #include <string.h>
 #include <limits.h>
 #include <ctype.h>
+#define NDEBUG
 
 /*--------------------------------------------------------------------*/
 
