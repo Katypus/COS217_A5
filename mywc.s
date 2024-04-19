@@ -28,6 +28,7 @@ iChar:
     .section .text
 
     .equ MAIN_STACK_BYTECOUNT, 16
+    .equ EOF, -1
     .global main
 
 main:
@@ -64,7 +65,7 @@ loop1:
 
     //iInWord = FALSE;
     ldr w0, [sp, iInWord]
-    str w0, FALSE
+    mov w0, FALSE
     endif2:
     // goto endif1
     b endif1
@@ -77,7 +78,7 @@ loop1:
 
 	//iInWord = TRUE;
     ldr w0, [sp, iInWord]
-    str w0, TRUE
+    mov w0, TRUE
 
 	endif3:
 
@@ -114,6 +115,7 @@ ldr x2, [x2]
 adr x3, lCharCount
 ldr x3, [x3]
 bl printf
+
 // Epilog and return 0
 mov w0, 0
 ldr x30, [sp]
