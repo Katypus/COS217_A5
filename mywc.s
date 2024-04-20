@@ -41,6 +41,8 @@ main:
         bl getchar
         adr x1, iChar
         ldr w0, [x1]
+        //str w0, [x0]
+        //str w0, [x1]
         cmp w0, EOF
         blt endloop1
         
