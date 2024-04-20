@@ -1,4 +1,4 @@
-CFLAGS =  -pg -D NDEBUG -O
+CFLAGS = -D NDEBUG -O -g
 
 # Dependency rules for non-file targets
 all: fib
@@ -11,7 +11,7 @@ clean:
 # FIB
 # Dependency rules for file targets
 fib: bigint.o fib.o bigintadd.o
-	gcc217 $(CFLAGS) bigint.o fib.o bigintadd.o -o fib
+	gcc217 -pg bigint.o fib.o bigintadd.o -o fib
 bigint.o: bigint.h bigint.c bigintprivate.h
 	gcc217 $(CFLAGS) -c bigint.c
 fib.o: fib.c bigint.h bigintprivate.h
