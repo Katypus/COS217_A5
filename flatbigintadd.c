@@ -44,13 +44,13 @@ int BigInt_add(BigInt_T oAddend1, BigInt_T oAddend2, BigInt_T oSum)
       if (ulSum < oAddend2->aulDigits[lIndex]) /* Check for overflow. */
          ulCarry = 1;
       oSum->aulDigits[lIndex] = ulSum;
-      if(lIndex >= SumLength) goto endloop1;
+      if(lIndex >= lSumLength) goto endloop1;
       lIndex = lIndex + 1;
    endloop1:
 
    /* Check for a carry out of the last "column" of the addition. */
    if(ulCarry != 1) goto endif2;
-   if(lSumLenght != MAX_DIGITS) goto endif3;
+   if(lSumLength != MAX_DIGITS) goto endif3;
    return FALSE;
    endif3:
    oSum -> aulDigits[lSumLength] = 1;
