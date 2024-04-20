@@ -24,6 +24,12 @@ int BigInt_add(BigInt_T oAddend1, BigInt_T oAddend2, BigInt_T oSum)
    long lIndex;
    long lSumLength;
 
+   assert(oAddend1 != NULL);
+   assert(oAddend2 != NULL);
+   assert(oSum != NULL);
+   assert(oSum != oAddend1);
+   assert(oSum != oAddend2);
+
    /* Determine the larger length. */
    lSumLength = BigInt_larger(oAddend1->lLength, oAddend2->lLength);
 
