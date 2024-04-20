@@ -13,7 +13,7 @@ static int iInWord = FALSE;      /* Bad style. */
 
 int main (void){
 loop1:
-	if ((iChar = getchar()) == EOF)) goto endloop1;
+	if ((iChar = getchar()) == EOF) goto endloop1;
 	lCharCount++;
 	if (!isspace(iChar)) goto else1;
 		if (!iInWord) goto endif2;
