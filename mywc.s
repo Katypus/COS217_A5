@@ -40,9 +40,9 @@ main:
         // if ((iChar = getchar()) == EOF) go to endloop1;
         bl getchar
         adr x1, iChar
-        strb w0, [x1]
+        str w0, [x1]
         cmp w0, EOF
-        blt endloop1
+        beq endloop1
         
         // lCharCount++;
         adr x0, lCharCount
@@ -51,8 +51,8 @@ main:
         str x2, [x0]
 
         // if (!isspace(iChar)) goto else1;
-        adr x0, iChar
-        ldr x0, [x0]
+        adr x1, iChar
+        ldr x0, [x1]
         bl isspace
         cmp x0, FALSE
         beq else1
