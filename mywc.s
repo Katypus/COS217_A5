@@ -8,8 +8,8 @@
     .section .rodata
 printfFormatStr:
     .string "%7ld %7ld %7ld\n"
-@ newline:
-@     .quad '\n'
+//newline:
+//    .quad '\n'
 //----------------------------------------
     .section .data
 lLineCount:
