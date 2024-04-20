@@ -8,8 +8,8 @@
     .section .rodata
 printfFormatStr:
     .string "%7ld %7ld %7ld\n"
-newline:
-    .byte '\n'
+@ newline:
+@     .quad '\n'
 //----------------------------------------
     .section .data
 lLineCount:
@@ -96,7 +96,7 @@ main:
         //if (iChar != '\n') goto endif4;
         adr x0, iChar
         ldr w1, [x0]
-        cmp w1, newline
+        cmp w1, '\n'
         bne endif4
 
         //lLineCount++;
