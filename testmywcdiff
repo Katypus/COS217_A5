@@ -40,10 +40,6 @@ echo "==============================================================="
 # Run mywcc on the input file, and capture its exit status.
 ./mywcc < $file > __stdout1
 ret1=$?
-
-echo "================================================================"
-echo "s is breaking"
-echo "================================================================"
 # Run mywcs on the input file, and capture its exit status.
 ./mywcs < $file > __stdout2
 ret2=$?
