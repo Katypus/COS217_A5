@@ -40,8 +40,7 @@ main:
         // if ((iChar = getchar()) == EOF) go to endloop1;
         bl getchar
         adr x1, iChar
-        str w0, [x0]
-        str w0, [x1]
+        strb w0, [x1]
         cmp w0, EOF
         blt endloop1
         
