@@ -16,5 +16,5 @@ bigint.o: bigint.h bigint.c bigintprivate.h
 	gcc217 $(CFLAGS) -c bigint.c
 fib.o: fib.c bigint.h bigintprivate.h
 	gcc217 $(CFLAGS) -c fib.c
-bigintadd.o: bigint.h flatbigintadd.c bigintprivate.h
+flatbigintadd.o: bigint.h flatbigintadd.c bigintprivate.h
 	gcc217 $(CFLAGS) -c flatbigintadd.c
