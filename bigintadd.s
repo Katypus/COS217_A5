@@ -83,7 +83,8 @@ bigintadd:
     add x0, x0, 8
     ldr x1, ZERO
     ldr x2, MAX_DIGITS
-    mul x2, x2, UNSIGNED_LONG_SIZE
+    ldr x3, UNSIGNED_LONG_SIZE
+    mul x2, x2, x3
     bl memset
 
     endif2:
@@ -96,7 +97,7 @@ bigintadd:
     str x2, [sp, 48]
 
     loop1:
-        
+
 
 
 
