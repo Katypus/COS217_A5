@@ -31,7 +31,7 @@ bigintlarger:
 
     // if (lLength1 <= lLength2) goto else1;
     cmp x0, x1
-    ble goto else1
+    ble else1
 
     // lLarger = lLength1;
     // no change required
@@ -43,6 +43,6 @@ bigintlarger:
 
     ldr x30, [sp]
     add sp, sp, 16
-    
+
     endif1:
     ret
