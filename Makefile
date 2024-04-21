@@ -1,7 +1,7 @@
 CFLAGS = -D NDEBUG -O -g
 
 # Dependency rules for non-file targets
-all: fib, fibs
+all: fib
 clobber: clean
 	rm -f *~ \#*\#
 clean:
