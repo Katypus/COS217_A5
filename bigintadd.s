@@ -88,7 +88,7 @@ bigintadd:
     // memset(oSum->aulDigits, 0, MAX_DIGITS * sizeof(unsigned long));
     ldr x0, [sp, 24]
     add x0, x0, 8
-    ldr x1, ZERO
+    mov x1, 0
     ldr x2, MAX_DIGITS
     ldr x3, UNSIGNED_LONG_SIZE
     mul x2, x2, x3
@@ -96,11 +96,11 @@ bigintadd:
 
     endif2:
     // ulCarry = 0;
-    ldr x0, ZERO
+    mov x0, 0
     str x0, [sp, 40]
 
     // lIndex = 0
-    ldr x1, ZERO
+    mov x1, 0
     str x2, [sp, 48]
 
     loop1:
@@ -115,7 +115,7 @@ bigintadd:
         str x0, [sp, 56]
 
         // ulCarry = 0;
-        ldr x0, ZERO
+        mov x0, 0
         str x0, [sp, 40]
 
         // ulSum += oAddend1->aulDigits[lIndex];
@@ -132,7 +132,7 @@ bigintadd:
         bge endif3
 
         // ulCarry = 1;
-        ldr x4, 1
+        mov x4, 1
         str x4, [sp, 40]
 
         endif3:
@@ -150,7 +150,7 @@ bigintadd:
         bge endif4
 
         // ulCarry = 1;
-        ldr x4, 1
+        mov x4, 1
         str x4, [sp, 40]
 
         endif4:
@@ -186,7 +186,7 @@ bigintadd:
         ldr x0, [sp, 24]
         add x0, x0, 8
         ldr x1, [sp, 32]
-        ldr x3, 1
+        mov x3, 1
         str x3, [x0, x1, lsl 3]
 
         // lSumLength++;
@@ -197,13 +197,13 @@ bigintadd:
         //oSum->lLength = lSumLength;
         ldr x0, [sp, 24]
         ldr x1, [sp, 32]
-        str x1, [x0, 0, lsl 3]
+        str x1, [x0]
 
         // [sp] top of stack
         ldr x30, [sp]
         add sp, sp, 56
 
-        ldr x0, TRUE
+        mov x0, TRUE
 
         ret
 
