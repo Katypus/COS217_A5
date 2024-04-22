@@ -16,6 +16,13 @@ printfFormatStr:
 .equ ADD_STACK_BYTECOUNT, 56
 .equ ZERO, 0
 .equ UNSIGNED_LONG_SIZE, 8
+.equ OADDEND1, 8
+.equ OADDEND2, 16
+.equ OSUM, 24
+.equ LSUMLENGTH, 32
+.equ ULCARRY, 40
+.equ LINDEX, 48
+.equ ULSUM, 56
 
 bigintlarger:
     // Prolog
@@ -191,6 +198,10 @@ bigintadd:
         ldr x0, [sp, 24]
         ldr x1, [sp, 32]
         str x1, [x0, 0, lsl 3]
+
+        // [sp] top of stack
+        ldr x30, [sp]
+        add sp, sp, 56
 
         ldr x0, TRUE
 
