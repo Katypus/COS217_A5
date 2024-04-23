@@ -1,18 +1,16 @@
-CFLAGS = -D NDEBUG -O
+CFLAGS = -D NDEBUG -O -g
 
 # Dependency rules for non-file targets
-all: fib
+all: fib fibs
 clobber: clean
 	rm -f *~ \#*\#
 clean:
 	rm -f fib *.o
-	rm -f fibs *.o
-
 
 # FIB
 # Dependency rules for file targets
-#fibs: fib.o bigint.o bigintadd.s
-#	gcc217 $(CFLAGS) fib.c bigint.c bigintadd.s -o fibs
+fibs: fib.o bigint.o bigintadd.s
+	gcc217 $(CFLAGS) fib.c bigint.c bigintadd.s -o fibs
 fib: bigint.o fib.o flatbigintadd.o
 	gcc217 -pg bigint.o fib.o flatbigintadd.o -o fib
 bigint.o: bigint.h bigint.c bigintprivate.h
