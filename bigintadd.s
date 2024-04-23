@@ -105,7 +105,7 @@ BigInt_add:
 
     // lIndex = 0
     mov x1, 0
-    str x2, [sp, LINDEX]
+    str x1, [sp, LINDEX]
 
     loop1:
         // if(lIndex >= lSumLength) goto endloop1;
