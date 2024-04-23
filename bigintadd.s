@@ -75,7 +75,7 @@ BigInt_add:
     ldr x2, [sp, 24]
 
     // lSumLength = BigInt_larger(oAddend1->lLength, oAddend2->lLength);
-    bl bigintlarger
+    bl BigInt_larger
     str x0, [sp, 32]
     
     // Load oSum
