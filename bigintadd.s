@@ -13,6 +13,7 @@ printfFormatStr:
 //----------------------------------------
     .section .text
 .equ LARGER_STACK_BYTECOUNT, 32
+.equ MAX_DIGITS, 32768
 .equ ADD_STACK_BYTECOUNT, 56
 .equ ZERO, 0
 .equ UNSIGNED_LONG_SIZE, 8
