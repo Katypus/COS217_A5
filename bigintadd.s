@@ -127,6 +127,7 @@ BigInt_add:
         // ulSum += oAddend1->aulDigits[lIndex];
         ldr x0, [sp, OADDEND1]
         add x0, x0, OFFSET
+        str x0, [x0]
         ldr x1, [sp, LINDEX]
         ldr x0, [x0, x1, lsl 3]
         //lsl x1, x1, 3
@@ -147,6 +148,7 @@ BigInt_add:
         // ulSum += oAddend2->aulDigits[lIndex];
         ldr x0, [sp, OADDEND2]
         add x0, x0, OFFSET
+        str x0, [x0]
         ldr x1, [sp, LINDEX]
         mov x2, x1
         ldr x0, [x0, x2, lsl 3]
