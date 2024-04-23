@@ -15,7 +15,6 @@ printfFormatStr:
 .equ LARGER_STACK_BYTECOUNT, 32
 .equ MAX_DIGITS, 32768
 .equ ADD_STACK_BYTECOUNT, 56
-.equ ZERO, 0
 .equ UNSIGNED_LONG_SIZE, 8
 .equ OADDEND1, 8
 .equ OADDEND2, 16
@@ -33,14 +32,14 @@ BigInt_larger:
     str x30, [sp]
 
     // Save lLength1
-    str x0, [sp, 16]
+    str x0, [sp, OADDEND2]
     // Save lLength2
-    str x1, [sp, 8]
+    str x1, [sp, OADDEND1]
 
     // load lLength1
-    ldr x0, [sp, 16]
+    ldr x0, [sp, OADDEND2]
     // load lLength2
-    ldr x1, [sp, 8]
+    ldr x1, [sp, OADDEND1]
 
     // if (lLength1 <= lLength2) goto else1;
     cmp x0, x1
@@ -51,8 +50,8 @@ BigInt_larger:
     b endif1
 
     else1:
-    str x0, [sp, 8]
-    ldr x0, [sp, 8]
+    str x0, [sp, OADDEND1]
+    ldr x0, [sp, OADDEND1]
 
     ldr x30, [sp]
     add sp, sp, 16
@@ -63,35 +62,35 @@ BigInt_larger:
 
 BigInt_add:
     // Prolog
-    sub sp, sp, ADD_STACK_BYTECOUNT
+    sub sp, sp, 64
     str x30, [sp]
 
     // Save oAddend1
-    str x0, [sp, 8]
+    str x0, [sp, OADDEND1]
     // Save oAddend2
-    str x1, [sp, 16]
+    str x1, [sp, OADDEND2]
     // Save oSum
-    str x2, [sp, 24]
+    str x2, [sp, OSUM]
 
     // Load parameters
-    ldr x0, [sp, 8]
-    ldr x1, [sp, 16]
-    ldr x2, [sp, 24]
+    ldr x0, [sp, OADDEND1]
+    ldr x1, [sp, OADDEND2]
+    ldr x2, [sp, OSUM]
 
     // lSumLength = BigInt_larger(oAddend1->lLength, oAddend2->lLength);
     bl BigInt_larger
     str x0, [sp, 32]
     
     // Load oSum
-    ldr x0, [sp, 24]
+    ldr x0, [sp, OSUM]
     ldr x1, [sp, 32]
 
     cmp x0, x1
     ble endif2
 
     // memset(oSum->aulDigits, 0, MAX_DIGITS * sizeof(unsigned long));
-    ldr x0, [sp, 24]
-    add x0, x0, 8
+    ldr x0, [sp, OSUM]
+    add x0, x0, UNSIGNED_LONG_SIZE
     mov x1, 0
     mov x2, MAX_DIGITS
     mov x3, UNSIGNED_LONG_SIZE
@@ -123,7 +122,7 @@ BigInt_add:
         str x0, [sp, 40]
 
         // ulSum += oAddend1->aulDigits[lIndex];
-        ldr x0, [sp, 8]
+        ldr x0, [sp, OADDEND1]
         add x0, x0, 8
         ldr x1, [sp, 48]
         mov x2, x1
@@ -141,7 +140,7 @@ BigInt_add:
 
         endif3:
         // ulSum += oAddend2->aulDigits[lIndex];
-        ldr x0, [sp, 16]
+        ldr x0, [sp, OADDEND2]
         add x0, x0, 8
         ldr x1, [sp, 48]
         mov x2, x1
@@ -159,7 +158,7 @@ BigInt_add:
 
         endif4:
         // oSum->aulDigits[lIndex] = ulSum;
-        ldr x0, [sp, 24]
+        ldr x0, [sp, OSUM]
         add x0, x0, 8
         ldr x1, [sp, 48]
         ldr x3, [sp, 56]
@@ -187,7 +186,7 @@ BigInt_add:
 
         endif6:
         // oSum -> aulDigits[lSumLength] = 1;
-        ldr x0, [sp, 24]
+        ldr x0, [sp, OSUM]
         add x0, x0, 8
         ldr x1, [sp, 32]
         mov x3, 1
@@ -199,13 +198,13 @@ BigInt_add:
 
         endif5:
         //oSum->lLength = lSumLength;
-        ldr x0, [sp, 24]
+        ldr x0, [sp, OSUM]
         ldr x1, [sp, 32]
         str x1, [x0]
 
-        // [sp] top of stack
+        // pop sp??
         ldr x30, [sp]
-        add sp, sp, 56
+        add sp, sp, 64
 
         mov x0, TRUE
 
