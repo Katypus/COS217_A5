@@ -125,8 +125,7 @@ BigInt_add:
         ldr x0, [sp, OADDEND1]
         add x0, x0, 8
         ldr x1, [sp, 48]
-        mov x2, x1
-        ldr x0, [x0, x2, lsl 3]
+        ldr x0, [x0, x1, lsl 3]
         ldr x3, [sp, 56]
         add x3, x3, x0
         str x3, [sp, 56]
