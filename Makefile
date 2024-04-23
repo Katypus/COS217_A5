@@ -1,4 +1,4 @@
-CFLAGS = -D NDEBUG -O
+CFLAGS = -D NDEBUG -O -g
 
 # Dependency rules for non-file targets
 all: fib fibs
@@ -6,6 +6,7 @@ clobber: clean
 	rm -f *~ \#*\#
 clean:
 	rm -f fib *.o
+	rm -f fibs *.o
 
 
 # FIB
