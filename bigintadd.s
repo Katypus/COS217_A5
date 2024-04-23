@@ -56,7 +56,7 @@ BigInt_larger:
 
     endif1:
     ret
-
+    .size BigInt_larger, (. - BigInt_larger)
 BigInt_add:
     // Prolog
     sub sp, sp, ADD_STACK_BYTECOUNT
@@ -89,8 +89,8 @@ BigInt_add:
     ldr x0, [sp, 24]
     add x0, x0, 8
     mov x1, 0
-    ldr x2, MAX_DIGITS
-    ldr x3, UNSIGNED_LONG_SIZE
+    mov x2, MAX_DIGITS
+    mov x3, UNSIGNED_LONG_SIZE
     mul x2, x2, x3
     bl memset
 
@@ -176,7 +176,7 @@ BigInt_add:
 
         //if(lSumLength != MAX_DIGITS) goto endif6;
         ldr x0, [sp, 32]
-        ldr x1, MAX_DIGITS
+        mov x1, MAX_DIGITS
         cmp x0, x1
         bne endif6
         ldr x0, FALSE
@@ -206,7 +206,7 @@ BigInt_add:
         mov x0, TRUE
 
         ret
-
+    .size BigInt_add, (. - BigInt_add)
 
 
 
