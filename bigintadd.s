@@ -168,8 +168,8 @@ BigInt_add:
         ldr x0, [x0]
         ldr x1, [sp, LINDEX]
         ldr x2, [sp, ULSUM]
-        ldr x2, [x0, x1, lsl 3]
-        str x2, [sp, ULSUM]
+        // ldr x0, [x0, x1, lsl 3]
+        str x0, [sp, ULSUM]
 
         // lIndex = lIndex + 1;
         ldr x0, [sp, LINDEX]
