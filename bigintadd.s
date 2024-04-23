@@ -14,7 +14,7 @@ printfFormatStr:
     .section .text
 .equ LARGER_STACK_BYTECOUNT, 32
 .equ MAX_DIGITS, 32768
-.equ ADD_STACK_BYTECOUNT, 56
+.equ ADD_STACK_BYTECOUNT, 64
 .equ UNSIGNED_LONG_SIZE, 8
 .equ OADDEND1, 8
 .equ OADDEND2, 16
@@ -118,8 +118,7 @@ BigInt_add:
         str x0, [sp, 56]
 
         // ulCarry = 0;
-        mov x0, 0
-        str x0, [sp, 40]
+        str xzr, [sp, 40]
 
         // ulSum += oAddend1->aulDigits[lIndex];
         ldr x0, [sp, OADDEND1]
