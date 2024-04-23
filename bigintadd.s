@@ -24,6 +24,7 @@ printfFormatStr:
 .equ LINDEX, 48
 .equ ULSUM, 56
 .equ OFFSET, 8
+.equ LLENGTHOFFSET, 0
 
 .global BigInt_add
 
@@ -85,7 +86,9 @@ BigInt_add:
     // Load oSum
     ldr x0, [sp, OSUM]
     ldr x1, [sp, LSUMLENGTH]
-
+    add x0, x0, LLENGTHOFFSET
+    ldr x0, [x0]
+    
     cmp x0, x1
     ble endif2
 
