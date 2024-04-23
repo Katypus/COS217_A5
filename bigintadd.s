@@ -24,7 +24,7 @@ printfFormatStr:
 .equ LINDEX, 48
 .equ ULSUM, 56
 
-bigintlarger:
+BigInt_larger:
     // Prolog
     sub sp, sp, LARGER_STACK_BYTECOUNT
     str x30, [sp]
@@ -57,7 +57,7 @@ bigintlarger:
     endif1:
     ret
 
-bigintadd:
+BigInt_add:
     // Prolog
     sub sp, sp, ADD_STACK_BYTECOUNT
     str x30, [sp]
