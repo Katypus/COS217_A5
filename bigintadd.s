@@ -11,7 +11,7 @@ printfFormatStr:
 //newline:
 //    .quad '\n'
 //----------------------------------------
-
+    .section .text
 .equ LARGER_STACK_BYTECOUNT, 32
 .equ ADD_STACK_BYTECOUNT, 56
 .equ ZERO, 0
