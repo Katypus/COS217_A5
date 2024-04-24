@@ -122,7 +122,8 @@ BigInt_add:
         str x0, [sp, ULSUM]
 
         // ulCarry = 0;
-        str xzr, [sp, ULCARRY]
+        mov x1, 0
+        str x1, [sp, ULCARRY]
 
         // ulSum += oAddend1->aulDigits[lIndex];
         ldr x0, [sp, OADDEND1]
