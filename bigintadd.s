@@ -95,7 +95,6 @@ BigInt_add:
     ldr x0, [sp, OSUM]
     ldr x1, [sp, LSUMLENGTH]
     ldr x0, [x0]
-    ldr x1, [x1]
     cmp x0, x1
     ble endif2
 
@@ -123,7 +122,6 @@ BigInt_add:
         ldr x0, [sp, LINDEX]
         ldr x0, [x0]
         ldr x1, [sp, LSUMLENGTH]
-        ldr x1, [x1]
         cmp x0, x1
         bge endloop1
 
@@ -203,7 +201,6 @@ BigInt_add:
 
         //if(lSumLength != MAX_DIGITS) goto endif6;
         ldr x0, [sp, LSUMLENGTH]
-        ldr x0, [x0]
         mov x1, MAX_DIGITS
         cmp x0, x1
         bne endif6
@@ -214,7 +211,6 @@ BigInt_add:
         ldr x0, [sp, OSUM]
         add x0, x0, OFFSET
         ldr x1, [sp, LSUMLENGTH]
-        ldr x1, [x1]
         mov x3, 1
         str x3, [x0, x1, lsl 3]
 
