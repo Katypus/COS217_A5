@@ -105,10 +105,15 @@ BigInt_add:
     // ulCarry = 0;
     mov x0, 0
     str x0, [sp, ULCARRY]
+    ldr x0, [sp, ULCARRY]
 
     // lIndex = 0
     mov x1, 0
     str x1, [sp, LINDEX]
+    ldr x1, [sp, LINDEX]
+
+
+
 
     loop1:
         // if(lIndex >= lSumLength) goto endloop1;
