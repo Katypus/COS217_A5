@@ -50,7 +50,7 @@ BigInt_larger:
 
     // if (lLength1 <= lLength2) goto else1;
     cmp x0, x1
-    ble else1
+    blt else1
     // lLarger = lLength1;
     str x0, [sp, LLARGER]
     b endif1
@@ -138,8 +138,9 @@ BigInt_add:
         add x3, x3, x0
         str x3, [sp, ULSUM]
 
+        //if(ulSum >= oAddend1->aulDigits[lIndex]) goto endif3;
         cmp x3, x0
-        bge endif3
+        bhs endif3
 
         // ulCarry = 1;
         mov x4, 1
@@ -157,7 +158,7 @@ BigInt_add:
 
         // if (ulSum >= oAddend2->aulDigits[lIndex]) goto endif4; 
         cmp x3, x0
-        bge endif4
+        bhs endif4
 
         // ulCarry = 1;
         mov x4, 1
