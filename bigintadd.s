@@ -120,7 +120,6 @@ BigInt_add:
     loop1:
         // if(lIndex >= lSumLength) goto endloop1;
         ldr x0, [sp, LINDEX]
-        ldr x0, [x0]
         ldr x1, [sp, LSUMLENGTH]
         cmp x0, x1
         bge endloop1
@@ -139,7 +138,6 @@ BigInt_add:
         add x0, x0, OFFSET
         str x0, [x0]
         ldr x1, [sp, LINDEX]
-        ldr x1, [x1]
         ldr x0, [x0, x1, lsl 3]
         ldr x3, [sp, ULSUM]
         ldr x3, [x3]
@@ -159,7 +157,6 @@ BigInt_add:
         add x0, x0, OFFSET
         str x0, [x0]
         ldr x1, [sp, LINDEX]
-        ldr x1, [x1]
         ldr x0, [x0, x1, lsl 3]
         ldr x3, [sp, ULSUM]
         ldr x3, [x3]
@@ -180,13 +177,11 @@ BigInt_add:
         add x0, x0, OFFSET
         str x0, [x0]
         ldr x1, [sp, LINDEX]
-        ldr x1, [x1]
         ldr x3, [x0, x1, lsl 3]
         str x3, [sp, ULSUM]
 
         // lIndex = lIndex + 1;
         ldr x0, [sp, LINDEX]
-        ldr x0, [x0]
         add x0, x0, 1
         str x0, [sp, LINDEX]
 
