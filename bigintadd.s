@@ -101,7 +101,7 @@ BigInt_add:
     // memset(oSum->aulDigits, 0, MAX_DIGITS * sizeof(unsigned long));
     ldr x0, [sp, OSUM]
     ldr x0, [x0]
-    add x0, x0, UNSIGNED_LONG_SIZE
+    add x0, x0, OFFSET
     mov x1, 0
     mov x2, MAX_DIGITS
     mov x3, UNSIGNED_LONG_SIZE
@@ -174,8 +174,8 @@ BigInt_add:
         add x0, x0, OFFSET
         str x0, [x0]
         ldr x1, [sp, LINDEX]
+        ldr x3, [sp, ULSUM]
         ldr x3, [x0, x1, lsl 3]
-        str x3, [sp, ULSUM]
 
         // lIndex = lIndex + 1;
         ldr x0, [sp, LINDEX]
@@ -212,6 +212,7 @@ BigInt_add:
         endif5:
         //oSum->lLength = lSumLength;
         ldr x0, [sp, OSUM]
+        ldr x0, [x0]
         ldr x1, [sp, LSUMLENGTH]
         str x1, [x0]
 
