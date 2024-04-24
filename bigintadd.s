@@ -82,6 +82,10 @@ BigInt_add:
     ldr x0, [sp, OADDEND1]
     ldr x1, [sp, OADDEND2]
     ldr x2, [sp, OSUM]
+    ldr x0, [x0]
+    ldr x0, [x1]
+    ldr x0, [x2]
+
 
     // lSumLength = BigInt_larger(oAddend1->lLength, oAddend2->lLength);
     bl BigInt_larger
