@@ -131,9 +131,6 @@ BigInt_add:
         str x0, [x0]
         ldr x1, [sp, LINDEX]
         ldr x0, [x0, x1, lsl 3]
-        //lsl x1, x1, 3
-        //add x0, x0, x1
-        //ldr x0, [x0]
         ldr x3, [sp, ULSUM]
         add x3, x3, x0
         str x3, [sp, ULSUM]
@@ -151,8 +148,7 @@ BigInt_add:
         add x0, x0, OFFSET
         str x0, [x0]
         ldr x1, [sp, LINDEX]
-        mov x2, x1
-        ldr x0, [x0, x2, lsl 3]
+        ldr x0, [x0, x1, lsl 3]
         ldr x3, [sp, ULSUM]
         add x3, x3, x0
         str x3, [sp, ULSUM]
@@ -170,9 +166,6 @@ BigInt_add:
         ldr x0, [sp, OSUM]
         add x0, x0, OFFSET
         str x0, [x0]
-        // ldr x1, [sp, LINDEX]
-        //  mov x2, x1
-        // ldr x3, [sp, ULSUM]
         ldr x3, [x0, x2, lsl 3]
         str x3, [sp, ULSUM]
 
