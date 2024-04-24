@@ -172,7 +172,8 @@ BigInt_add:
         // ldr x1, [sp, LINDEX]
         //  mov x2, x1
         // ldr x3, [sp, ULSUM]
-        str x3, [x0, x2, lsl 3]
+        ldr x3, [x0, x2, lsl 3]
+        str x3, [sp, ULSUM]
 
         // lIndex = lIndex + 1;
         ldr x0, [sp, LINDEX]
