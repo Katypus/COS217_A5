@@ -166,7 +166,8 @@ BigInt_add:
         ldr x0, [sp, OSUM]
         add x0, x0, OFFSET
         str x0, [x0]
-        ldr x3, [x0, x2, lsl 3]
+        ldr x1, [sp, LINDEX]
+        ldr x3, [x0, x1, lsl 3]
         str x3, [sp, ULSUM]
 
         // lIndex = lIndex + 1;
