@@ -100,7 +100,6 @@ BigInt_add:
 
     // memset(oSum->aulDigits, 0, MAX_DIGITS * sizeof(unsigned long));
     ldr x0, [sp, OSUM]
-    ldr x0, [x0, 0]
     add x0, x0, OFFSET
     mov x1, 0
     mov x2, MAX_DIGITS
