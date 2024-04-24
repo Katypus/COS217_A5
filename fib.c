@@ -88,7 +88,7 @@ static void computeFib(int iNum)
       oFirstPrev = oCurrent;
    }
 
-   printf("SecondPrev: %d \n FirstPrev: %d \n", oSecondPrev, oFirstPrev);
+   printf("SecondPrev: %d \n FirstPrev: %d \n", (int) oSecondPrev, (int) oFirstPrev);
 
    printf("Fibonacci number %d:\n", iNum);
    BigInt_writeHex(stdout, oCurrent);
