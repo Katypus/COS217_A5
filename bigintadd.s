@@ -14,7 +14,7 @@ printfFormatStr:
     .section .text
 .equ LARGER_STACK_BYTECOUNT, 32
 .equ MAX_DIGITS, 32768
-.equ ADD_STACK_BYTECOUNT, 64
+.equ ADD_STACK_BYTECOUNT, 80
 .equ UNSIGNED_LONG_SIZE, 8
 .equ OADDEND1, 8
 .equ OADDEND2, 16
@@ -111,9 +111,6 @@ BigInt_add:
     mov x1, 0
     str x1, [sp, LINDEX]
     ldr x1, [sp, LINDEX]
-
-
-
 
     loop1:
         // if(lIndex >= lSumLength) goto endloop1;
@@ -217,7 +214,7 @@ BigInt_add:
         ldr x1, [sp, LSUMLENGTH]
         str x1, [x0]
 
-        // pop sp??
+        // load x30
         ldr x30, [sp]
         add sp, sp, ADD_STACK_BYTECOUNT
 
