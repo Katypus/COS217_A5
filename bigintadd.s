@@ -24,6 +24,9 @@ printfFormatStr:
 .equ LINDEX, 48
 .equ ULSUM, 56
 .equ OFFSET, 8
+.equ LLARGER, 8
+.equ LLENGTH1, 16
+.equ LLENGTH2, 24
 .equ LLENGTHOFFSET, 0
 
 .global BigInt_add
@@ -34,32 +37,32 @@ BigInt_larger:
     str x30, [sp]
 
     // Save lLength1
-    str x0, [sp, OADDEND2]
+    str x0, [sp, LLENGTH1]
     // Save lLength2
-    str x1, [sp, OADDEND1]
+    str x1, [sp, LLENGTH2]
 
     // load lLength1
-    ldr x0, [sp, OADDEND2]
+    ldr x0, [sp, LLENGTH1]
     // load lLength2
-    ldr x1, [sp, OADDEND1]
+    ldr x1, [sp, LLENGTH2]
 
     // if (lLength1 <= lLength2) goto else1;
     cmp x0, x1
     ble else1
-
     // lLarger = lLength1;
-    // no change required
+    str x0, [sp, LLARGER]
     b endif1
 
     else1:
-    str x0, [sp, OADDEND1]
-    ldr x0, [sp, OADDEND1]
+    // lLarger = lLength2;
+    str x1, [sp, LLARGER]
 
     endif1:
 
     ldr x30, [sp]
     add sp, sp, LARGER_STACK_BYTECOUNT
     
+    ldr x0, [sp, LLARGER]
     ret
     .size BigInt_larger, (. - BigInt_larger)
 
