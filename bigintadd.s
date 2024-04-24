@@ -16,6 +16,7 @@ printfFormatStr:
 .equ MAX_DIGITS, 32768
 .equ ADD_STACK_BYTECOUNT, 64
 .equ UNSIGNED_LONG_SIZE, 8
+
 .equ OADDEND1, 8
 .equ OADDEND2, 16
 .equ OSUM, 24
@@ -23,11 +24,12 @@ printfFormatStr:
 .equ ULCARRY, 40
 .equ LINDEX, 48
 .equ ULSUM, 56
+
 .equ OFFSET, 8
-.equ LLARGER, 8
-.equ LLENGTH1, 16
-.equ LLENGTH2, 24
-.equ LLENGTHOFFSET, 0
+
+.equ LLARGER, 24
+.equ LLENGTH1, 8
+.equ LLENGTH2, 16
 
 .global BigInt_add
 
@@ -83,8 +85,8 @@ BigInt_add:
     // lSumLength = BigInt_larger(oAddend1->lLength, oAddend2->lLength);
     ldr x0, [sp, OADDEND1]
     ldr x1, [sp, OADDEND2]
-    ldr x0, [x0]
-    ldr x1, [x1]
+    ldr x0, [x0, 0]
+    ldr x1, [x1, 0]
     
     bl BigInt_larger
     str x0, [sp, LSUMLENGTH]
@@ -92,13 +94,13 @@ BigInt_add:
     // if (oSum->lLength <= lSumLength) goto endif2;
     ldr x0, [sp, OSUM]
     ldr x1, [sp, LSUMLENGTH]
-    ldr x0, [x0]
+    ldr x0, [x0, 0]
     cmp x0, x1
     ble endif2
 
     // memset(oSum->aulDigits, 0, MAX_DIGITS * sizeof(unsigned long));
     ldr x0, [sp, OSUM]
-    ldr x0, [x0]
+    ldr x0, [x0, 0]
     add x0, x0, OFFSET
     mov x1, 0
     mov x2, MAX_DIGITS
@@ -212,7 +214,7 @@ BigInt_add:
         ldr x1, [sp, LSUMLENGTH]
         str x1, [x0]
         mov w0, TRUE
-        
+
         // load x30
         ldr x30, [sp]
         add sp, sp, ADD_STACK_BYTECOUNT
