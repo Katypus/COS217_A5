@@ -55,10 +55,11 @@ BigInt_larger:
     str x0, [sp, OADDEND1]
     ldr x0, [sp, OADDEND1]
 
+    endif1:
+
     ldr x30, [sp]
     add sp, sp, LARGER_STACK_BYTECOUNT
-
-    endif1:
+    
     ret
     .size BigInt_larger, (. - BigInt_larger)
 
