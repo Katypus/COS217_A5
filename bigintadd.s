@@ -126,7 +126,6 @@ BigInt_add:
 
         // ulSum = ulCarry;
         ldr x0, [sp, ULCARRY]
-        ldr x0, [x0]
         str x0, [sp, ULSUM]
 
         // ulCarry = 0;
@@ -140,7 +139,6 @@ BigInt_add:
         ldr x1, [sp, LINDEX]
         ldr x0, [x0, x1, lsl 3]
         ldr x3, [sp, ULSUM]
-        ldr x3, [x3]
         add x3, x3, x0
         str x3, [sp, ULSUM]
 
@@ -159,7 +157,6 @@ BigInt_add:
         ldr x1, [sp, LINDEX]
         ldr x0, [x0, x1, lsl 3]
         ldr x3, [sp, ULSUM]
-        ldr x3, [x3]
         add x3, x3, x0
         str x3, [sp, ULSUM]
 
@@ -190,7 +187,6 @@ BigInt_add:
     endloop1:
         // if(ulCarry != 1) goto endif5;
         ldr x0, [sp, ULCARRY]
-        ldr x0, [x0]
         cmp x0, 1
         bne endif5
 
