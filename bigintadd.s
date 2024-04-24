@@ -167,6 +167,7 @@ BigInt_add:
         // oSum->aulDigits[lIndex] = ulSum;
         ldr x0, [sp, OSUM]
         add x0, x0, OFFSET
+        str x0, [x0]
         ldr x0, [x0]
         ldr x1, [sp, LINDEX]
         ldr x2, [sp, ULSUM]
