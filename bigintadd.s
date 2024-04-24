@@ -212,7 +212,6 @@ BigInt_add:
         endif5:
         //oSum->lLength = lSumLength;
         ldr x0, [sp, OSUM]
-        ldr x0, [x0]
         ldr x1, [sp, LSUMLENGTH]
         str x1, [x0]
 
