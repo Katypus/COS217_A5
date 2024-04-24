@@ -108,12 +108,10 @@ BigInt_add:
 
     endif2:
     // ulCarry = 0;
-    mov x0, 0
-    str x0, [sp, ULCARRY]
+    str xzr, [sp, ULCARRY]
     
     // lIndex = 0
-    mov x1, 0
-    str x1, [sp, LINDEX]
+    str xzr, [sp, LINDEX]
 
     loop1:
         // if(lIndex >= lSumLength) goto endloop1;
@@ -127,13 +125,11 @@ BigInt_add:
         str x0, [sp, ULSUM]
 
         // ulCarry = 0;
-        mov x1, 0
-        str x1, [sp, ULCARRY]
+        str xzr, [sp, ULCARRY]
 
         // ulSum += oAddend1->aulDigits[lIndex];
         ldr x0, [sp, OADDEND1]
         add x0, x0, OFFSET
-        str x0, [x0]
         ldr x1, [sp, LINDEX]
         ldr x0, [x0, x1, lsl 3]
         ldr x3, [sp, ULSUM]
@@ -151,7 +147,6 @@ BigInt_add:
         // ulSum += oAddend2->aulDigits[lIndex];
         ldr x0, [sp, OADDEND2]
         add x0, x0, OFFSET
-        str x0, [x0]
         ldr x1, [sp, LINDEX]
         ldr x0, [x0, x1, lsl 3]
         ldr x3, [sp, ULSUM]
@@ -170,7 +165,6 @@ BigInt_add:
         // oSum->aulDigits[lIndex] = ulSum;
         ldr x0, [sp, OSUM]
         add x0, x0, OFFSET
-        str x0, [x0]
         ldr x1, [sp, LINDEX]
         ldr x3, [sp, ULSUM]
         ldr x3, [x0, x1, lsl 3]
@@ -193,7 +187,12 @@ BigInt_add:
         mov x1, MAX_DIGITS
         cmp x0, x1
         bne endif6
-        ldr x0, FALSE
+        mov w0, FALSE
+
+         // load x30
+        ldr x30, [sp]
+        add sp, sp, ADD_STACK_BYTECOUNT
+        ret
 
         endif6:
         // oSum -> aulDigits[lSumLength] = 1;
@@ -212,12 +211,11 @@ BigInt_add:
         ldr x0, [sp, OSUM]
         ldr x1, [sp, LSUMLENGTH]
         str x1, [x0]
-
+        mov w0, TRUE
+        
         // load x30
         ldr x30, [sp]
         add sp, sp, ADD_STACK_BYTECOUNT
-
-        mov x0, TRUE
 
         ret
     .size BigInt_add, (. - BigInt_add)
