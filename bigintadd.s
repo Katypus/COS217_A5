@@ -156,6 +156,7 @@ BigInt_add:
         add x3, x3, x0
         str x3, [sp, ULSUM]
 
+        // if (ulSum >= oAddend2->aulDigits[lIndex]) goto endif4; 
         cmp x3, x0
         bge endif4
 
@@ -168,9 +169,9 @@ BigInt_add:
         ldr x0, [sp, OSUM]
         add x0, x0, OFFSET
         str x0, [x0]
-        ldr x1, [sp, LINDEX]
-        mov x2, x1
-        ldr x3, [sp, ULSUM]
+        // ldr x1, [sp, LINDEX]
+        //  mov x2, x1
+        // ldr x3, [sp, ULSUM]
         str x3, [x0, x2, lsl 3]
 
         // lIndex = lIndex + 1;
