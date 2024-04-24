@@ -63,6 +63,7 @@ BigInt_larger:
     add sp, sp, LARGER_STACK_BYTECOUNT
     
     ldr x0, [sp, LLARGER]
+    ldr x0, [x0]
     ret
     .size BigInt_larger, (. - BigInt_larger)
 
