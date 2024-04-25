@@ -120,7 +120,6 @@ BigInt_add:
     // if (oSum->lLength <= lSumLength) goto endif2;
     ldr x0, [oSum]
     mov x1, lSumLength
-    ldr x0, [x0, 0]
     cmp x0, x1
     ble endif2
 
