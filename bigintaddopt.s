@@ -92,23 +92,32 @@ BigInt_add:
     // Prolog
     sub sp, sp, ADD_STACK_BYTECOUNT
     str x30, [sp]
-
-    // Save oAddend1
-    str x0, [sp, OADDEND1]
-    // Save oAddend2
-    str x1, [sp, OADDEND2]
-    // Save oSum
-    str x2, [sp, OSUM]
-
-    // Load parameters
-    // lSumLength = BigInt_larger(oAddend1->lLength, oAddend2->lLength);
-    ldr x0, [sp, OADDEND1]
-    ldr x1, [sp, OADDEND2]
-    ldr x0, [x0, 0]
-    ldr x1, [x1, 0]
     
+    // Save all local variable + parameters we need to use
+    str oAddend1, [sp, OADDEND1]
+    str oAddend2, [sp, OADDEND2]
+    str oSum, [sp, OSUM]
+    str lSumLength, [sp, LSUMLENGTH]
+    str ulCarry, [sp, ULCARRY]
+    str lIndex, [sp, LINDEX]
+    str ulSum, [sp, ULSUM]
+
+    // Save parameters
+    mov oAddend1, x0
+    mov oAddend2, x1
+    mov oSum, x2
+
+    // lSumLength = BigInt_larger(oAddend1->lLength, oAddend2->lLength);
+
+    // Get oAddend lengths
+    ldr x0, [oAddend1]
+    ldr x1, [oAddend2]
+    
+    // method call
     bl BigInt_larger
-    str x0, [sp, LSUMLENGTH]
+
+    // assign result to LSumLength
+    mov lSumLength, x0
     
     // if (oSum->lLength <= lSumLength) goto endif2;
     ldr x0, [sp, OSUM]
@@ -118,7 +127,7 @@ BigInt_add:
     ble endif2
 
     // memset(oSum->aulDigits, 0, MAX_DIGITS * sizeof(unsigned long));
-    ldr x0, [sp, OSUM]
+    ldr x0, [oSum]
     add x0, x0, OFFSET
     mov w1, 0
     mov x2, MAX_DIGITS
@@ -128,112 +137,106 @@ BigInt_add:
 
     endif2:
     // ulCarry = 0;
-    str xzr, [sp, ULCARRY]
+    mov ulCarry, 0
     
     // lIndex = 0
-    str xzr, [sp, LINDEX]
+    mov lIndex, 0
 
     loop1:
         // if(lIndex >= lSumLength) goto endloop1;
-        ldr x0, [sp, LINDEX]
-        ldr x1, [sp, LSUMLENGTH]
+        ldr x0, [lIndex]
+        ldr x1, [lSumLength]
         cmp x0, x1
         bge endloop1
 
         // ulSum = ulCarry;
-        ldr x0, [sp, ULCARRY]
-        str x0, [sp, ULSUM]
+        mov ulSum, ulCarry
 
         // ulCarry = 0;
-        str xzr, [sp, ULCARRY]
+        mov ulCarry, 0
 
         // ulSum += oAddend1->aulDigits[lIndex];
-        ldr x0, [sp, OADDEND1]
+        ldr x0, [oAddend]
         add x0, x0, OFFSET
-        ldr x1, [sp, LINDEX]
+        ldr x1, [lIndex]
         ldr x0, [x0, x1, lsl 3]
-        ldr x3, [sp, ULSUM]
+        ldr x3, [ulSum]
         add x3, x3, x0
-        str x3, [sp, ULSUM]
+        mov ulSum, x3
 
         //if(ulSum >= oAddend1->aulDigits[lIndex]) goto endif3;
         cmp x3, x0
         bhs endif3
 
         // ulCarry = 1;
-        mov x4, 1
-        str x4, [sp, ULCARRY]
+        mov ulCarry, 1
 
         endif3:
         // ulSum += oAddend2->aulDigits[lIndex];
-        ldr x0, [sp, OADDEND2]
+        ldr x0, [oAddend2]
         add x0, x0, OFFSET
-        ldr x1, [sp, LINDEX]
+        ldr x1, [lIndex]
         ldr x0, [x0, x1, lsl 3]
-        ldr x3, [sp, ULSUM]
+        ldr x3, [ulSum]
         add x3, x3, x0
-        str x3, [sp, ULSUM]
+        mov ulSum, x3
 
         // if (ulSum >= oAddend2->aulDigits[lIndex]) goto endif4; 
         cmp x3, x0
         bhs endif4
 
         // ulCarry = 1;
-        mov x4, 1
-        str x4, [sp, ULCARRY]
+        mov ulCarry, 1
 
         endif4:
         // oSum->aulDigits[lIndex] = ulSum;
-        ldr x0, [sp, OSUM]
+        ldr x0, [oSum]
         add x0, x0, OFFSET
-        ldr x1, [sp, LINDEX]
-        ldr x3, [sp, ULSUM]
-        str x3, [x0, x1, lsl 3]
+        ldr x1, lIndex
+        mov [x0, x1, lsl 3], ulSum
 
         // lIndex = lIndex + 1;
-        ldr x0, [sp, LINDEX]
+        ldr x0, lIndex
         add x0, x0, 1
-        str x0, [sp, LINDEX]
+        mov lIndex, x0
 
         b loop1
 
     endloop1:
         // if(ulCarry != 1) goto endif5;
-        ldr x0, [sp, ULCARRY]
-        cmp x0, 1
+        cmp ulCarry, 1
         bne endif5
 
         //if(lSumLength != MAX_DIGITS) goto endif6;
-        ldr x0, [sp, LSUMLENGTH]
-        mov x1, MAX_DIGITS
-        cmp x0, x1
+        cmp lSumLength, MAX_DIGITS
         bne endif6
         mov w0, FALSE
-
-         // load x30
-        ldr x30, [sp]
-        add sp, sp, ADD_STACK_BYTECOUNT
-        ret
+        b epilogue
 
         endif6:
         // oSum -> aulDigits[lSumLength] = 1;
-        ldr x0, [sp, OSUM]
+        ldr x0, [oSum]
         add x0, x0, OFFSET
-        ldr x1, [sp, LSUMLENGTH]
-        mov x3, 1
-        str x3, [x0, x1, lsl 3]
+        mov [x0, lSumLength, lsl 3], 1
 
         // lSumLength++;
-        add x1, x1, 1
-        str x1, [sp, LSUMLENGTH]
+        add lSumLength, lSumLength, 1
 
         endif5:
         //oSum->lLength = lSumLength;
-        ldr x0, [sp, OSUM]
-        ldr x1, [sp, LSUMLENGTH]
-        str x1, [x0]
+        ldr x0, [oSum]
+        mov oSum, lSumLength
+
         mov w0, TRUE
 
+        epilogue:
+        ldr oAddend1, [sp, OADDEND1]
+        ldr oAddend2, [sp, OADDEND2]
+        ldr oSum, [sp, OSUM]
+        ldr lSumLength, [sp, LSUMLENGTH]
+        ldr ulCarry, [sp, ULCARRY]
+        ldr lIndex, [sp, LINDEX]
+        ldr ulSum, [sp, ULSUM]
         // load x30
         ldr x30, [sp]
         add sp, sp, ADD_STACK_BYTECOUNT
