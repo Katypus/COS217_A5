@@ -141,8 +141,8 @@ BigInt_add:
 
     loop1:
         // if(lIndex >= lSumLength) goto endloop1;
-        ldr x0, [lIndex]
-        ldr x1, [lSumLength]
+        mov x0, lIndex
+        mov x1, lSumLength
         cmp x0, x1
         bge endloop1
 
@@ -155,9 +155,9 @@ BigInt_add:
         // ulSum += oAddend1->aulDigits[lIndex];
         ldr x0, [oAddend1]
         add x0, x0, 8
-        ldr x1, [lIndex]
+        mov x1, lIndex
         ldr x0, [x0, x1, lsl 3]
-        ldr x3, [ulSum]
+        mov x3, ulSum
         add x3, x3, x0
         mov ulSum, x3
 
@@ -172,9 +172,9 @@ BigInt_add:
         // ulSum += oAddend2->aulDigits[lIndex];
         ldr x0, [oAddend2]
         add x0, x0, OFFSET
-        ldr x1, [lIndex]
+        mov x1, lIndex
         ldr x0, [x0, x1, lsl 3]
-        ldr x3, [ulSum]
+        mov x3, ulSum
         add x3, x3, x0
         mov ulSum, x3
 
@@ -189,7 +189,7 @@ BigInt_add:
         // oSum->aulDigits[lIndex] = ulSum;
         ldr x0, [oSum]
         add x0, x0, OFFSET
-        ldr x1, [lIndex]
+        mov x1, lIndex
         ldr x2, [x0, x1, lsl 3]
         mov x2, ulSum
 
