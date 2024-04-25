@@ -153,7 +153,7 @@ BigInt_add:
         mov ulCarry, 0
 
         // ulSum += oAddend1->aulDigits[lIndex];
-        ldr x0, [oAddend1]
+        ldr x0, oAddend1
         add x0, x0, 8
         mov x1, lIndex
         ldr x0, [x0, x1, lsl 3]
