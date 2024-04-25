@@ -114,7 +114,7 @@ BigInt_add:
     
     bl BigInt_larger
     
-    str x0, lSumLength
+    str x0, [sp, LSUMLENGTH]
     
     // if (oSum->lLength <= lSumLength) goto endif2;
     //ldr x0, [sp, OSUM]
