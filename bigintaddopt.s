@@ -84,9 +84,8 @@ BigInt_larger:
     add sp, sp, LARGER_STACK_BYTECOUNT
     
     ret
-    .size BigInt_larger, (. - BigInt_larger)
 
-.global BigInt_add
+    .global BigInt_add
 BigInt_add:
     // Prolog
     sub sp, sp, ADD_STACK_BYTECOUNT
@@ -127,7 +126,7 @@ BigInt_add:
 
     // memset(oSum->aulDigits, 0, MAX_DIGITS * sizeof(unsigned long));
     ldr x0, [oSum]
-    add x0, x0, OFFSET
+    add x0, x0, 8
     mov w1, 0
     mov x2, MAX_DIGITS
     mov x3, UNSIGNED_LONG_SIZE
@@ -242,7 +241,8 @@ BigInt_add:
         add sp, sp, ADD_STACK_BYTECOUNT
 
         ret
-    .size BigInt_add, (. - BigInt_add)
+
+        .size BigInt_add, (. - BigInt_add)
 
 
 
