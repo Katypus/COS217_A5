@@ -27,9 +27,9 @@ printfFormatStr:
 
 .equ OFFSET, 8
 
-.equ LLARGER, 24
 .equ LLENGTH1, 8
 .equ LLENGTH2, 16
+.equ LLARGER, 24
 
 .global BigInt_add
 
@@ -61,10 +61,12 @@ BigInt_larger:
 
     endif1:
 
+    ldr x0, [sp, LLARGER]
+    ldr x0, [x0]
+    
     ldr x30, [sp]
     add sp, sp, LARGER_STACK_BYTECOUNT
     
-    ldr x0, [sp, LLARGER]
     ret
     .size BigInt_larger, (. - BigInt_larger)
 
