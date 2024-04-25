@@ -89,7 +89,7 @@ BigInt_larger:
     .size BigInt_larger, (. - BigInt_larger)
 
 BigInt_add:
- // Prolog
+    // Prolog
     sub sp, sp, ADD_STACK_BYTECOUNT
     str x30, [sp]
 
