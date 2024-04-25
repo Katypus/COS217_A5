@@ -17,17 +17,17 @@
 .equ OFFSET, 8
 
 // locations sp points to in BigInt_add
-.equ Oakdj, 8
-.equ OADDEND2, 16
-.equ OSUM, 24
-.equ LSUMLENGTH, 32
-.equ ULCARRY, 40
-.equ LINDEX, 48
-.equ ULSUM, 56
+.equ oldstack1, 8
+.equ oldstack2, 16
+.equ oldstack3, 24
+.equ oldstack4, 32
+.equ oldstack5, 40
+.equ oldstack6, 48
+.equ oldstack7, 56
 // locations sp points to in BigInt_larger
-.equ LLENGTH1, 8
-.equ LLENGTH2, 16
-.equ LLARGER, 24
+.equ oldstack8, 8
+.equ oldstack9, 16
+.equ oldstack10, 24
 
 // registers for parameters
 lLength1 .req x19
@@ -49,11 +49,11 @@ BigInt_larger:
     str x30, [sp]
 
     // Save x19
-    str x19, [sp, LLENGTH1]
+    str lLength1, [sp, oldstack8]
     // Save x20
-    str x20, [sp, LLENGTH2]
+    str lLength2, [sp, oldstack9]
     // Save x21
-    str x21, [sp, LLARGER]
+    str lLarger, [sp, oldstack10]
 
     // Save lLength1, lLength2
     mov lLength1, x0
@@ -76,11 +76,11 @@ BigInt_larger:
 
     ldr x30, [sp]
     // Restore x19
-    str x19, [sp, LLENGTH1]
+    str x19, [oldstack8]
     // Restore x20
-    str x20, [sp, LLENGTH2]
+    str x20, [oldstack9]
     // Restore x21
-    str x21, [sp, LLARGER]
+    str x21, [oldstack10]
     add sp, sp, LARGER_STACK_BYTECOUNT
     
     ret
@@ -92,13 +92,13 @@ BigInt_add:
     str x30, [sp]
     
     // Save all local variable + parameters we need to use
-    str oAddend1, [sp, Oakdj]
-    str oAddend2, [sp, OADDEND2]
-    str oSum, [sp, OSUM]
-    str lSumLength, [sp, LSUMLENGTH]
-    str ulCarry, [sp, ULCARRY]
-    str lIndex, [sp, LINDEX]
-    str ulSum, [sp, ULSUM]
+    str oAddend1, [sp, oldstack1]
+    str oAddend2, [sp, oldstack2]
+    str oSum, [sp, oldstack3]
+    str lSumLength, [sp, oldstack4]
+    str ulCarry, [sp,oldstack5]
+    str lIndex, [sp, oldstack6]
+    str ulSum, [sp, oldstack7]
 
     // Save parameters
     mov oAddend1, x0
@@ -118,8 +118,8 @@ BigInt_add:
     mov lSumLength, x0
     
     // if (oSum->lLength <= lSumLength) goto endif2;
-    ldr x0, [sp, OSUM]
-    ldr x1, [sp, LSUMLENGTH]
+    ldr x0, [oSum]
+    ldr x1, [lSumLength]
     ldr x0, [x0, 0]
     cmp x0, x1
     ble endif2
@@ -229,13 +229,13 @@ BigInt_add:
         mov w0, TRUE
 
         epilogue:
-        ldr oAddend1, [sp, OADDEND1]
-        ldr oAddend2, [sp, OADDEND2]
-        ldr oSum, [sp, OSUM]
-        ldr lSumLength, [sp, LSUMLENGTH]
-        ldr ulCarry, [sp, ULCARRY]
-        ldr lIndex, [sp, LINDEX]
-        ldr ulSum, [sp, ULSUM]
+        ldr oAddend1, [sp, oldstack1]
+        ldr oAddend2, [sp, oldstack2]
+        ldr oSum, [sp, oldstack3]
+        ldr lSumLength, [sp, oldstack4]
+        ldr ulCarry, [sp, oldstack5]
+        ldr lIndex, [sp, oldstack6]
+        ldr ulSum, [sp, oldstack7]
         // load x30
         ldr x30, [sp]
         add sp, sp, ADD_STACK_BYTECOUNT
