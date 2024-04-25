@@ -1,5 +1,5 @@
 //-------------------------------
-// bigintadd.s
+// bigintaddopt.s
 // Authors: Nadja and Kat
 //----------------------------------------
     .equ FALSE, 0
@@ -8,11 +8,15 @@
     .section .rodata
 //----------------------------------------
     .section .text
+
+// magic numbers
 .equ LARGER_STACK_BYTECOUNT, 32
 .equ MAX_DIGITS, 32768
 .equ ADD_STACK_BYTECOUNT, 64
 .equ UNSIGNED_LONG_SIZE, 8
+.equ OFFSET, 8
 
+// locations sp points to in BigInt_add
 .equ OADDEND1, 8
 .equ OADDEND2, 16
 .equ OSUM, 24
@@ -20,12 +24,24 @@
 .equ ULCARRY, 40
 .equ LINDEX, 48
 .equ ULSUM, 56
-
-.equ OFFSET, 8
-
+// locations sp points to in BigInt_larger
 .equ LLENGTH1, 8
 .equ LLENGTH2, 16
 .equ LLARGER, 24
+
+// registers for parameters
+lLength1 .req x19
+lLength2 .req x20
+oAddend1 .req x22
+oAddend2 .req x23
+oSum .req x24
+
+// registers for local variables
+lLarger .req x21
+lSumLength .req x25
+ulCarry .req x26
+ulSum .req x27
+lIndex .req x28
 
 .global BigInt_add
 
@@ -34,32 +50,39 @@ BigInt_larger:
     sub sp, sp, LARGER_STACK_BYTECOUNT
     str x30, [sp]
 
-    // Save lLength1
-    str x0, [sp, LLENGTH1]
-    // Save lLength2
-    str x1, [sp, LLENGTH2]
+    // Save x19
+    str x19, [sp, LLENGTH1]
+    // Save x20
+    str x20, [sp, LLENGTH2]
+    // Save x21
+    str x21, [sp, LLARGER]
 
-    // load lLength1
-    ldr x0, [sp, LLENGTH1]
-    // load lLength2
-    ldr x1, [sp, LLENGTH2]
+    // Save lLength1, lLength2
+    mov lLength1, x0
+    mov lLength2, x1
 
     // if (lLength1 <= lLength2) goto else1;
     cmp x0, x1
     ble else1
     // lLarger = lLength1;
-    str x0, [sp, LLARGER]
+    mov lLarger, lLength1
     b endif1
 
     else1:
     // lLarger = lLength2;
-    str x1, [sp, LLARGER]
+    mov lLarger, lLength2
 
     endif1:
 
-    ldr x0, [sp, LLARGER]
+    ldr x0, lLarger
 
     ldr x30, [sp]
+    // Restore x19
+    str x19, [sp, LLENGTH1]
+    // Restore x20
+    str x20, [sp, LLENGTH2]
+    // Restore x21
+    str x21, [sp, LLARGER]
     add sp, sp, LARGER_STACK_BYTECOUNT
     
     ret
@@ -70,22 +93,25 @@ BigInt_add:
     sub sp, sp, ADD_STACK_BYTECOUNT
     str x30, [sp]
 
-    // Save oAddend1
-    str x0, [sp, OADDEND1]
-    // Save oAddend2
-    str x1, [sp, OADDEND2]
-    // Save oSum
-    str x2, [sp, OSUM]
+    // Save x22, x23, x24, x25
+    str x22, [sp, OADDEND1]
+    str x23, [sp, OADDEND2]
+    str x24, [sp, OSUM]
+    str x25, [sp, LSUMLENGTH]
+
 
     // Load parameters
     // lSumLength = BigInt_larger(oAddend1->lLength, oAddend2->lLength);
-    ldr x0, [sp, OADDEND1]
-    ldr x1, [sp, OADDEND2]
-    ldr x0, [x0, 0]
-    ldr x1, [x1, 0]
+    mov oAddend1, x0
+    mov oAddend2, x1
+    mov oSum, x2
+
+    //ldr x0, [x0, 0]
+    //ldr x1, [x1, 0]
     
     bl BigInt_larger
-    str x0, [sp, LSUMLENGTH]
+    
+    str x0, lSumLength
     
     // if (oSum->lLength <= lSumLength) goto endif2;
     ldr x0, [sp, OSUM]
