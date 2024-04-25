@@ -156,11 +156,11 @@ BigInt_add:
         mov ulCarry, 0
 
         // ulSum += oAddend1->aulDigits[lIndex];
-        ldr x0, [oAddend]
+        ldr x0, oAddend
         add x0, x0, OFFSET
-        ldr x1, [lIndex]
+        ldr x1, lIndex
         ldr x0, [x0, x1, lsl 3]
-        ldr x3, [ulSum]
+        ldr x3, ulSum
         add x3, x3, x0
         mov ulSum, x3
 
@@ -173,11 +173,11 @@ BigInt_add:
 
         endif3:
         // ulSum += oAddend2->aulDigits[lIndex];
-        ldr x0, [oAddend2]
+        ldr x0, oAddend2
         add x0, x0, OFFSET
-        ldr x1, [lIndex]
+        ldr x1, lIndex
         ldr x0, [x0, x1, lsl 3]
-        ldr x3, [ulSum]
+        ldr x3, ulSum
         add x3, x3, x0
         mov ulSum, x3
 
@@ -190,14 +190,14 @@ BigInt_add:
 
         endif4:
         // oSum->aulDigits[lIndex] = ulSum;
-        ldr x0, [oSum]
+        ldr x0, oSum
         add x0, x0, OFFSET
         ldr x1, lIndex
-        mov [x0, x1, lsl 3], ulSum
+        ldr x2, [x0, x1, lsl 3]
+        mov x2, ulSum
 
         // lIndex = lIndex + 1;
-        ldr x0, lIndex
-        add x0, x0, 1
+        add lIndex, lIndex, 1
         mov lIndex, x0
 
         b loop1
@@ -215,9 +215,10 @@ BigInt_add:
 
         endif6:
         // oSum -> aulDigits[lSumLength] = 1;
-        ldr x0, [oSum]
+        ldr x0, oSum
         add x0, x0, OFFSET
-        mov [x0, lSumLength, lsl 3], 1
+        ldr x1, [x0, lSumLength, lsl 3]
+        mov x1, 1
 
         // lSumLength++;
         add lSumLength, lSumLength, 1
