@@ -50,7 +50,7 @@ BigInt_larger:
 
     // if (lLength1 <= lLength2) goto else1;
     cmp x0, x1
-    blt else1
+    ble else1
     // lLarger = lLength1;
     str x0, [sp, LLARGER]
     b endif1
@@ -65,7 +65,6 @@ BigInt_larger:
     add sp, sp, LARGER_STACK_BYTECOUNT
     
     ldr x0, [sp, LLARGER]
-    ldr x0, [x0]
     ret
     .size BigInt_larger, (. - BigInt_larger)
 
