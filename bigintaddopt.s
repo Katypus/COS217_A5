@@ -43,8 +43,6 @@ ulCarry .req x26
 ulSum .req x27
 lIndex .req x28
 
-.global BigInt_add
-
 BigInt_larger:
     // Prolog
     sub sp, sp, LARGER_STACK_BYTECOUNT
@@ -88,6 +86,7 @@ BigInt_larger:
     ret
     .size BigInt_larger, (. - BigInt_larger)
 
+.global BigInt_add
 BigInt_add:
     // Prolog
     sub sp, sp, ADD_STACK_BYTECOUNT
@@ -156,7 +155,7 @@ BigInt_add:
         mov ulCarry, 0
 
         // ulSum += oAddend1->aulDigits[lIndex];
-        ldr x0, oAddend
+        ldr x0, oAddend1
         add x0, x0, OFFSET
         ldr x1, lIndex
         ldr x0, [x0, x1, lsl 3]
