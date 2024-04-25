@@ -76,11 +76,11 @@ BigInt_larger:
 
     ldr x30, [sp]
     // Restore x19
-    str x19, [oldstack8]
+    str x19, [sp, oldstack8]
     // Restore x20
-    str x20, [oldstack9]
+    str x20, [sp, oldstack9]
     // Restore x21
-    str x21, [oldstack10]
+    str x21, [sp, oldstack10]
     add sp, sp, LARGER_STACK_BYTECOUNT
     
     ret
