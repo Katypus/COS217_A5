@@ -74,7 +74,7 @@ BigInt_larger:
 
     endif1:
 
-    ldr x0, lLarger
+    ldr x0, [sp, LLARGER]
 
     ldr x30, [sp]
     // Restore x19
