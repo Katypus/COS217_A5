@@ -103,9 +103,8 @@ BigInt_add:
     add x0, x0, OFFSET
     mov w1, 0
     mov x2, MAX_DIGITS
-    lsl x2, x2, UNSIGNED_LONG_SIZE
-    //mov x3, UNSIGNED_LONG_SIZE
-    //mul x2, x2, x3
+    mov x3, UNSIGNED_LONG_SIZE
+    mul x2, x2, x3
     bl memset
 
     endif2:
@@ -170,7 +169,7 @@ BigInt_add:
         add x0, x0, OFFSET
         ldr x1, [sp, LINDEX]
         ldr x3, [sp, ULSUM]
-        ldr x3, [x0, x1, lsl 3]
+        str x3, [x0, x1, lsl 3]
 
         // lIndex = lIndex + 1;
         ldr x0, [sp, LINDEX]
