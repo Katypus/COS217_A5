@@ -17,7 +17,7 @@
 .equ OFFSET, 8
 
 // locations sp points to in BigInt_add
-.equ OADDEND1, 8
+.equ Oakdj, 8
 .equ OADDEND2, 16
 .equ OSUM, 24
 .equ LSUMLENGTH, 32
@@ -92,7 +92,7 @@ BigInt_add:
     str x30, [sp]
     
     // Save all local variable + parameters we need to use
-    str oAddend1, [sp, OADDEND1]
+    str oAddend1, [sp, Oakdj]
     str oAddend2, [sp, OADDEND2]
     str oSum, [sp, OSUM]
     str lSumLength, [sp, LSUMLENGTH]
