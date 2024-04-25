@@ -66,7 +66,14 @@ Was it fun?
 Student 2: What is your assessment of the assignment? Was it helpful?
 Was it fun?
 
-
+This was the most headache-inducing, painful thing any course has done
+to me in the entire two years I've been here. It was HORRIBLE. I had 
+three essays and two psets aside from this and everything else felt like
+taking a little break in comparison to this. A4 felt like a little 
+vacation in comparison to this. General Chemistry felt like a breeze in
+comparison to this. There are not enough words in the English language
+to describe how much I hated this assignment. This was the absolute
+worst thing anyone has ever done to me. 
 
 ------------------------------------------------------------------------
 (optional) What information can you provide about your submission that
@@ -78,7 +85,39 @@ particular, what bugs are in your submission?
 ------------------------------------------------------------------------
 What is your mywc program test plan?
 
-
+Boundary tests:
+mywc000.txt: empty text file, tests if the program works at a 
+minimum boundary
+mwc001.txt: text file containing only new lines, tests if the program 
+works for a file with only one type of value in it
+mwc002.txt: text file containing only spaces, tests if the program 
+works for a file with only one type of value in it
+mywc003.txt: text file containing only a single word, tests if the 
+program works for the minimum of one word
+mywc004.txt: text file containing a word, two new lines in a row, and then
+another word, tests if the program works for the case of two consecutive 
+new lines (here, we are focusing on the word count)
+mywc005.txt: text file containing a word, two spaces, and then another 
+word, tests if the program works for two consecutive spaces (here, 
+we are focusing on the word count)
+mywc006.txt: text file containing a word, a space, a new line, a space, 
+and then another word, tests if the program works for a more complex 
+variation of spaces and new lines
+Stress tests:
+mywc007.txt: randomly generated ASCII characters, 40099 characters
+mywc008.txt: randomly generated ASCII characters, 45099 characters
+Statement tests:
+mywc009.txt: first character in the file is a space, which makes it go to 
+if1. iInWord is FALSE, so nothing else changes. The next few characters 
+are letters. They go into the else1. Here, the not iInWord is TRUE for the
+first character, which makes iInWord change to TRUE. Nothing changes for 
+the next few characters. The next character is a space, which goes into 
+the if1, iInWord is now TRUE, which causes the lWordCount to increment, 
+and iInWord to change to FALSE. The next character is a new line, which 
+goes into if2, and increases lLineCount. Then we have another word, and
+this word is followed by EOF. The first character of the word changes 
+the iInWord back to TRUE. Because of EOF, we exit the loop. Because 
+iInWord is TRUE, lWordCount increments.
 
 ------------------------------------------------------------------------
 What are the CPU times consumed by the programs from Parts 2a, 2b, 2d,
@@ -88,7 +127,7 @@ Part 2a:  11.924 seconds
 
 Part 2b:  2.619 seconds
 
-Part 2d:  _____ seconds
+Part 2d:  7.874 seconds
 
 Part 2e:  _____ seconds
 
