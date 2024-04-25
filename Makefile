@@ -10,8 +10,8 @@ clean:
 
 # FIB
 # Dependency rules for file targets
-fibs: fib.o bigint.o bigintadd.s
-	gcc217 $(CFLAGS) fib.c bigint.c bigintadd.s -o fibs
+fibs: fib.o bigint.o bigintaddopt.s
+	gcc217 $(CFLAGS) fib.c bigint.c bigintaddopt.s -o fibs
 fib: bigint.o fib.o bigintadd.o
 	gcc217 bigint.o fib.o bigintadd.o -o fib
 bigint.o: bigint.h bigint.c bigintprivate.h
