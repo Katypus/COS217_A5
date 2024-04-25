@@ -62,8 +62,7 @@ BigInt_larger:
     endif1:
 
     ldr x0, [sp, LLARGER]
-    ldr x0, [x0]
-    
+
     ldr x30, [sp]
     add sp, sp, LARGER_STACK_BYTECOUNT
     
