@@ -3,12 +3,13 @@ Assignment 5 readme File
 ------------------------------------------------------------------------
 Student 1: What is your name?
 
+Katherine Ren
 
 
 ------------------------------------------------------------------------
 Student 2: What is your name?
 
-
+Nadja Markov
 
 ------------------------------------------------------------------------
 Student 1: What authorized sources of information did you use to
@@ -17,6 +18,16 @@ information given in the "Policies" web page (also available on armlab
 in the file ~cos217/AuthorizedSourcesList ) to this section of the
 readme file, and edit it as appropriate.
 
+The course's lectures.
+
+The course's precepts.
+
+The course's website.
+
+Documents that are referenced directly by the course's website.
+Such documents include the course's lecture slides and precept handouts.
+
+The course's current staff members outside of class time through office hours.
 
 
 ------------------------------------------------------------------------
@@ -26,6 +37,16 @@ information given in the "Policies" web page (also available on armlab
 in the file ~cos217/AuthorizedSourcesList ) to this section of the
 readme file, and edit it as appropriate.
 
+The course's lectures.
+
+The course's precepts.
+
+The course's website.
+
+Documents that are referenced directly by the course's website.
+Such documents include the course's lecture slides and precept handouts.
+
+The course's current staff members outside of class time through office hours.
 
 
 ------------------------------------------------------------------------
@@ -40,7 +61,7 @@ nature of the interaction, may additionally require the interaction
 being reported to the Committee on Discipline. Write "None" if you used
 no unauthorized sources of information.
 
-
+None.
 
 ------------------------------------------------------------------------
 Student 2: What unauthorized sources of information did you use to
@@ -54,13 +75,14 @@ nature of the interaction, may additionally require the interaction
 being reported to the Committee on Discipline. Write "None" if you used
 no unauthorized sources of information.
 
-
+None.
 
 ------------------------------------------------------------------------
 Student 1: What is your assessment of the assignment? Was it helpful?
 Was it fun?
 
-
+Horrendous. Horrible. Horrendous. Actually the meanest thing anyone's ever
+done to me.
 
 ------------------------------------------------------------------------
 Student 2: What is your assessment of the assignment? Was it helpful?
@@ -80,7 +102,8 @@ worst thing anyone has ever done to me.
 will help your grader to grade it in the most favorable light? In
 particular, what bugs are in your submission?
 
-
+We suspect that our part 2e has some sort of minor bug in how we store
+and restore our register values, which is causing a seg fault.
 
 ------------------------------------------------------------------------
 What is your mywc program test plan?
@@ -129,9 +152,9 @@ Part 2b:  2.619 seconds
 
 Part 2d:  7.874 seconds
 
-Part 2e:  _____ seconds
+Part 2e:  ??? seconds
 
-Part 2f:  _____ seconds
+Part 2f:  ??? seconds
 
 
 
