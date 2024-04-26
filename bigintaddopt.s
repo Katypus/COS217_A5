@@ -228,6 +228,8 @@ BigInt_add:
         mov w0, TRUE
 
         epilogue:
+        // load x30
+        ldr x30, [sp]
         ldr oAddend1, [sp, oldstack1]
         ldr oAddend2, [sp, oldstack2]
         ldr oSum, [sp, oldstack3]
@@ -235,8 +237,7 @@ BigInt_add:
         ldr ulCarry, [sp, oldstack5]
         ldr lIndex, [sp, oldstack6]
         ldr ulSum, [sp, oldstack7]
-        // load x30
-        ldr x30, [sp]
+        
         add sp, sp, ADD_STACK_BYTECOUNT
 
         ret
